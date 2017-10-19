@@ -26,19 +26,19 @@
 #include <string>
 #include <utility>
 #include <vector>
- 
+
 #include "ros/include/ros/ros.h"
- 
+
 #include "modules/localization/proto/gps.pb.h"
 #include "modules/localization/proto/imu.pb.h"
 #include "modules/localization/proto/localization.pb.h"
- 
+
 #include "glog/logging.h"
 #include "gtest/gtest_prod.h"
 #include "modules/common/monitor/monitor.h"
 #include "modules/common/status/status.h"
 #include "modules/localization/localization_base.h"
- 
+
 /**
  * @namespace apollo::localization
  * @brief apollo::localization
@@ -67,12 +67,12 @@ class MSFLocalization : public LocalizationBase {
    * @return stop status
    */
   apollo::common::Status Stop() override;
- 
+
  private:
   void OnTimer(const ros::TimerEvent &event);
   // void PublishLocalization();
   // void RunWatchDog();
- 
+
  private:
   ros::Timer timer_;
   apollo::common::monitor::Monitor monitor_;
@@ -84,9 +84,8 @@ class MSFLocalization : public LocalizationBase {
   // FRIEND_TEST(RTKLocalizationTest, InterpolateIMU);
   // FRIEND_TEST(RTKLocalizationTest, ComposeLocalizationMsg);
 };
- 
+
 }  // namespace localization
 }  // namespace apollo
- 
+
 #endif  // MODULES_LOCALIZATION_MSF_LOCALIZATION_H_
- 
