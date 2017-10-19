@@ -72,6 +72,8 @@ class MSFLocalization : public LocalizationBase {
  private:
   void OnTimer(const ros::TimerEvent &event);
   void OnPointCloud(const sensor_msgs::PointCloud2& message);
+  void OnImu(const localization::Imu &imu_msg);
+  void OnGps(const localization::Gps &gps_msg);
   // void PublishLocalization();
   // void RunWatchDog();
 

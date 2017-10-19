@@ -49,11 +49,13 @@ Status MSFLocalization::Start() {
     buffer.PrintLog();
     return Status(common::LOCALIZATION_ERROR, "no GPS adapter");
   }
+  AdapterManager::AddGpsCallback(&MSFLocalization::OnGps, this);
   if (!AdapterManager::GetImu()) {
     buffer.ERROR("IMU input not initialized. Check your adapter.conf file!");
     buffer.PrintLog();
     return Status(common::LOCALIZATION_ERROR, "no IMU adapter");
   }
+  AdapterManager::AddImuCallback(&MSFLocalization::OnImu, this);
   CHECK(AdapterManager::GetPointCloud()) << "PointCloud is not initialized.";
   AdapterManager::AddPointCloudCallback(&MSFLocalization::OnPointCloud, this);
   return Status::OK();
@@ -68,6 +70,12 @@ void MSFLocalization::OnTimer(const ros::TimerEvent &event) {
 }
 
 void MSFLocalization::OnPointCloud(const sensor_msgs::PointCloud2& message) {
+}
+
+void MSFLocalization::OnImu(const localization::Imu &imu_msg) {
+}
+
+void MSFLocalization::OnGps(const localization::Gps &gps_msg) {
 }
 
 }  // namespace localization
