@@ -30,6 +30,10 @@ DEFINE_string(localization_config_file,
               "modules/localization/conf/localization_config.pb.txt",
               "localization config file");
 
+DEFINE_string(msf_adapter_config_file,
+              "modules/localization/conf/msf_adapter.conf",
+              "msf adapter configuration");
+
 // features
 DEFINE_bool(enable_gps_imu_interprolate, true, "enable GPU/IMU interprolate");
 DEFINE_bool(enable_map_reference_unify, true,
