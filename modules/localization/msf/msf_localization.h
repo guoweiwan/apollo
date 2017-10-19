@@ -28,6 +28,7 @@
 #include <vector>
 
 #include "ros/include/ros/ros.h"
+#include "sensor_msgs/PointCloud2.h"
 
 #include "modules/localization/proto/gps.pb.h"
 #include "modules/localization/proto/imu.pb.h"
@@ -70,6 +71,7 @@ class MSFLocalization : public LocalizationBase {
 
  private:
   void OnTimer(const ros::TimerEvent &event);
+  void OnPointCloud(const sensor_msgs::PointCloud2& message);
   // void PublishLocalization();
   // void RunWatchDog();
 

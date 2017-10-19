@@ -54,6 +54,8 @@ Status MSFLocalization::Start() {
     buffer.PrintLog();
     return Status(common::LOCALIZATION_ERROR, "no IMU adapter");
   }
+  CHECK(AdapterManager::GetPointCloud()) << "PointCloud is not initialized.";
+  AdapterManager::AddPointCloudCallback(&MSFLocalization::OnPointCloud, this);
   return Status::OK();
 }
 
@@ -63,6 +65,9 @@ Status MSFLocalization::Stop() {
 }
 
 void MSFLocalization::OnTimer(const ros::TimerEvent &event) {
+}
+
+void MSFLocalization::OnPointCloud(const sensor_msgs::PointCloud2& message) {
 }
 
 }  // namespace localization
