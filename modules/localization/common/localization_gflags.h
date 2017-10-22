@@ -61,7 +61,7 @@ DECLARE_string(query_tf2_target_frame_id_lidar);
 DECLARE_string(query_tf2_source_frame_id_lidar);
 DECLARE_string(publish_frame_id_lidar);
 DECLARE_int32(localization_mode);
-DECLARE_int32(tf2_buff_in_ms);
+DECLARE_int32(tf2_buffer_expire_time);
 DECLARE_int32(local_utm_zone_id);
 DECLARE_double(map_coverage_theshold);
 

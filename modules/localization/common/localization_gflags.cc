@@ -82,7 +82,7 @@ DEFINE_string(publish_frame_id_lidar, "localization_lidar",
     "The frame id used to publish localization result.");
 DEFINE_int32(localization_mode, 2,
     "Localization mode, 0 for intensity, 1 for altitude, 2 for fusion.");
-DEFINE_int32(tf2_buff_in_ms, 10,
+DEFINE_int32(tf2_buffer_expire_time, 10,
     "Query Ros TF timeout in ms. ros::Duration time.");
 DEFINE_int32(local_utm_zone_id, 50, "UTM zone id.");
 DEFINE_double(map_coverage_theshold, 0.9,
