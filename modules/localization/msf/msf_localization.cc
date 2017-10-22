@@ -36,7 +36,7 @@ MSFLocalization::MSFLocalization()
     map_offset_{FLAGS_map_offset_x, FLAGS_map_offset_y, FLAGS_map_offset_z} {}
 
 Status MSFLocalization::Start() {
-  AdapterManager::Init(FLAGS_rtk_adapter_config_file);
+  AdapterManager::Init(FLAGS_msf_adapter_config_file);
 
   // start ROS timer, one-shot = false, auto-start = true
   const double duration = 1.0 / FLAGS_localization_publish_freq;
@@ -70,6 +70,17 @@ void MSFLocalization::OnTimer(const ros::TimerEvent &event) {
 }
 
 void MSFLocalization::OnPointCloud(const sensor_msgs::PointCloud2& message) {
+  // set parameter: map_path
+
+  // set parameter: lidar_extrinsic_file
+
+  // set parameter: lidar_height_file
+
+  // set parameter: debug_log_flag
+
+  // set parameter: localization_mode
+
+  // set parameter: local_utm_zone_id
 }
 
 void MSFLocalization::OnImu(const localization::Imu &imu_msg) {
