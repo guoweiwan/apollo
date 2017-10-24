@@ -36,10 +36,10 @@ message IntegMeasure {
   optional FrameType frame_type = 3;
 
   // Position measurement from GNSS or Lidar.
-  optional Point3D position = 4;
+  optional apollo.common.Point3D position = 4;
 
   // Velocity measurement from GNSS or odometer.
-  optional Point3D velocity = 5;
+  optional apollo.common.Point3D velocity = 5;
 
   optional double yaw = 6;
 
