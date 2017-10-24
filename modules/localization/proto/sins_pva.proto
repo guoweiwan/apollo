@@ -9,6 +9,7 @@ message IntegSinsPva {
   optional apollo.common.Header header = 1;
 
   // The position calculated by SINS.
+
   optional apollo.common.PointLLH position = 2;
 
   // The velocity calculated by SINS.
