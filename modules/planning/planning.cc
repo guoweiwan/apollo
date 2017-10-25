@@ -41,7 +41,9 @@ using apollo::common::VehicleState;
 using apollo::common::adapter::AdapterManager;
 using apollo::common::time::Clock;
 
-std::string Planning::Name() const { return "planning"; }
+std::string Planning::Name() const {
+  return "planning";
+}
 
 void Planning::RegisterPlanners() {
   planner_factory_.Register(
@@ -88,16 +90,15 @@ bool Planning::HasSignalLight(const PlanningConfig& config) {
 }
 
 Status Planning::Init() {
-  const auto& map_file = apollo::hdmap::BaseMapFile();
-  CHECK(!hdmap_.LoadMapFromFile(map_file)) << "Failed to load map file:"
-                                           << map_file;
-  Frame::SetMap(&hdmap_);
+  hdmap_ = apollo::hdmap::HDMapUtil::BaseMapPtr();
+  CHECK(hdmap_) << "Failed to load map file:" << apollo::hdmap::BaseMapFile();
+  Frame::SetMap(hdmap_);
 
   CHECK(apollo::common::util::GetProtoFromFile(FLAGS_planning_config_file,
                                                &config_))
       << "failed to load planning config file " << FLAGS_planning_config_file;
   if (!AdapterManager::Initialized()) {
-    AdapterManager::Init(FLAGS_adapter_config_filename);
+    AdapterManager::Init(FLAGS_planning_adapter_config_filename);
   }
   if (AdapterManager::GetLocalization() == nullptr) {
     std::string error_msg("Localization is not registered");
@@ -127,7 +128,7 @@ Status Planning::Init() {
   }
   if (FLAGS_enable_reference_line_provider_thread) {
     ReferenceLineProvider::instance()->Init(
-        &hdmap_, config_.reference_line_smoother_config());
+        hdmap_, config_.reference_line_smoother_config());
   }
 
   RegisterPlanners();
@@ -163,10 +164,6 @@ Status Planning::Start() {
 
 void Planning::OnTimer(const ros::TimerEvent&) {
   RunOnce();
-  if (frame_) {
-    auto seq_num = frame_->SequenceNum();
-    FrameHistory::instance()->Add(seq_num, std::move(frame_));
-  }
 }
 
 void Planning::PublishPlanningPb(ADCTrajectory* trajectory_pb,
@@ -246,6 +243,10 @@ void Planning::RunOnce() {
       status.Save(estop.mutable_header()->mutable_status());
       PublishPlanningPb(&estop, start_timestamp);
     }
+    if (frame_) {
+      auto seq_num = frame_->SequenceNum();
+      FrameHistory::instance()->Add(seq_num, std::move(frame_));
+    }
     return;
   }
 
@@ -266,6 +267,10 @@ void Planning::RunOnce() {
     status.Save(trajectory_pb.mutable_header()->mutable_status());
     PublishPlanningPb(&trajectory_pb, start_timestamp);
     AERROR << "Planning failed";
+  }
+  if (frame_) {
+    auto seq_num = frame_->SequenceNum();
+    FrameHistory::instance()->Add(seq_num, std::move(frame_));
   }
 }
 

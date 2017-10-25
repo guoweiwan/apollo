@@ -30,10 +30,10 @@
 
 #include "modules/common/configs/proto/vehicle_config.pb.h"
 #include "modules/common/proto/pnc_point.pb.h"
+#include "modules/planning/proto/planning_internal.pb.h"
 
 #include "modules/planning/common/path_obstacle.h"
 #include "modules/planning/common/speed/speed_data.h"
-#include "modules/planning/proto/planning_internal.pb.h"
 #include "modules/planning/reference_line/reference_line.h"
 
 namespace apollo {
@@ -44,11 +44,11 @@ class QpFrenetFrame {
   QpFrenetFrame(const ReferenceLine& reference_line,
                 const SpeedData& speed_data,
                 const common::FrenetFramePoint& init_frenet_point,
-                const double time_resolution);
+                const double time_resolution,
+                const std::vector<double>& evaluated_s);
   virtual ~QpFrenetFrame() = default;
 
-  bool Init(const uint32_t num_points,
-            const std::vector<const PathObstacle*>& path_obstacles);
+  bool Init(const std::vector<const PathObstacle*>& path_obstacles);
 
   void LogQpBound(apollo::planning_internal::Debug* planning_debug);
 
@@ -84,7 +84,7 @@ class QpFrenetFrame {
   std::pair<uint32_t, uint32_t> FindInterval(const double start,
                                              const double end) const;
 
-  void CalculateHDMapBound();
+  bool CalculateHDMapBound();
 
   bool CalculateObstacleBound(
       const std::vector<const PathObstacle*>& path_obstacles);
@@ -107,7 +107,7 @@ class QpFrenetFrame {
   double end_s_ = 0.0;
   double time_resolution_ = 0.1;
 
-  std::vector<double> evaluated_knots_;
+  std::vector<double> evaluated_s_;
   std::vector<common::SpeedPoint> discretized_vehicle_location_;
   std::vector<std::pair<double, double>> hdmap_bound_;
   std::vector<std::pair<double, double>> static_obstacle_bound_;
