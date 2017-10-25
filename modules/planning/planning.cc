@@ -41,7 +41,9 @@ using apollo::common::VehicleState;
 using apollo::common::adapter::AdapterManager;
 using apollo::common::time::Clock;
 
-std::string Planning::Name() const { return "planning"; }
+std::string Planning::Name() const {
+  return "planning";
+}
 
 void Planning::RegisterPlanners() {
   planner_factory_.Register(
@@ -96,7 +98,7 @@ Status Planning::Init() {
                                                &config_))
       << "failed to load planning config file " << FLAGS_planning_config_file;
   if (!AdapterManager::Initialized()) {
-    AdapterManager::Init(FLAGS_adapter_config_filename);
+    AdapterManager::Init(FLAGS_planning_adapter_config_filename);
   }
   if (AdapterManager::GetLocalization() == nullptr) {
     std::string error_msg("Localization is not registered");
@@ -162,10 +164,6 @@ Status Planning::Start() {
 
 void Planning::OnTimer(const ros::TimerEvent&) {
   RunOnce();
-  if (frame_) {
-    auto seq_num = frame_->SequenceNum();
-    FrameHistory::instance()->Add(seq_num, std::move(frame_));
-  }
 }
 
 void Planning::PublishPlanningPb(ADCTrajectory* trajectory_pb,
@@ -245,6 +243,10 @@ void Planning::RunOnce() {
       status.Save(estop.mutable_header()->mutable_status());
       PublishPlanningPb(&estop, start_timestamp);
     }
+    if (frame_) {
+      auto seq_num = frame_->SequenceNum();
+      FrameHistory::instance()->Add(seq_num, std::move(frame_));
+    }
     return;
   }
 
@@ -265,6 +267,10 @@ void Planning::RunOnce() {
     status.Save(trajectory_pb.mutable_header()->mutable_status());
     PublishPlanningPb(&trajectory_pb, start_timestamp);
     AERROR << "Planning failed";
+  }
+  if (frame_) {
+    auto seq_num = frame_->SequenceNum();
+    FrameHistory::instance()->Add(seq_num, std::move(frame_));
   }
 }
 

@@ -17,12 +17,12 @@
 /**
  * @file qp_spline_path_generator.cc
  **/
+#include "modules/planning/tasks/qp_spline_path/qp_spline_path_generator.h"
+
 #include <algorithm>
 #include <limits>
 #include <utility>
 #include <vector>
-
-#include "modules/planning/tasks/qp_spline_path/qp_spline_path_generator.h"
 
 #include "modules/common/proto/pnc_point.pb.h"
 
@@ -40,10 +40,12 @@ using Vec2d = apollo::common::math::Vec2d;
 
 QpSplinePathGenerator::QpSplinePathGenerator(
     Spline1dGenerator* spline_generator, const ReferenceLine& reference_line,
-    const QpSplinePathConfig& qp_spline_path_config)
+    const QpSplinePathConfig& qp_spline_path_config,
+    const SLBoundary& adc_sl_boundary)
     : spline_generator_(spline_generator),
       reference_line_(reference_line),
-      qp_spline_path_config_(qp_spline_path_config) {
+      qp_spline_path_config_(qp_spline_path_config),
+      adc_sl_boundary_(adc_sl_boundary) {
   CHECK_GE(qp_spline_path_config_.regularization_weight(), 0.0)
       << "regularization_weight should NOT be negative.";
   CHECK_GE(qp_spline_path_config_.derivative_weight(), 0.0)
@@ -77,22 +79,29 @@ bool QpSplinePathGenerator::Generate(
   double start_s = init_frenet_point_.s();
   double end_s = reference_line_.Length();
 
-  QpFrenetFrame qp_frenet_frame(reference_line_, speed_data, init_frenet_point_,
-                                qp_spline_path_config_.time_resolution());
-  if (!qp_frenet_frame.Init(qp_spline_path_config_.num_output(),
-                            path_obstacles)) {
-    AERROR << "Fail to initialize qp frenet frame";
+  const double kMinPathLength = 1.0e-6;
+  if (start_s + kMinPathLength > end_s) {
+    AERROR << "Path length is too small. Path start_s: " << start_s
+           << ", end_s: " << end_s;
     return false;
+  } else {
+    ADEBUG << "path start with " << start_s << ", end with " << end_s;
   }
-  qp_frenet_frame.LogQpBound(planning_debug_);
-
-  ADEBUG << "path start with " << start_s << ", end with " << end_s;
 
   if (!InitSpline(start_s, end_s)) {
     AERROR << "Init smoothing spline failed with (" << start_s << ",  end_s "
            << end_s;
     return false;
   }
+
+  QpFrenetFrame qp_frenet_frame(reference_line_, speed_data, init_frenet_point_,
+                                qp_spline_path_config_.time_resolution(),
+                                evaluated_s_);
+  if (!qp_frenet_frame.Init(path_obstacles)) {
+    AERROR << "Fail to initialize qp frenet frame";
+    return false;
+  }
+  qp_frenet_frame.LogQpBound(planning_debug_);
 
   if (!AddConstraint(qp_frenet_frame)) {
     AERROR << "Fail to setup pss path constraint.";
@@ -291,8 +300,12 @@ bool QpSplinePathGenerator::AddConstraint(
 
     road_boundary.first =
         std::fmin(road_boundary.first, init_frenet_point_.l() - lateral_buf);
+    road_boundary.first = std::fmin(road_boundary.first,
+                                    adc_sl_boundary_.start_l() - lateral_buf);
     road_boundary.second =
         std::fmax(road_boundary.second, init_frenet_point_.l() + lateral_buf);
+    road_boundary.second =
+        std::fmax(road_boundary.second, adc_sl_boundary_.end_l() + lateral_buf);
 
     boundary_low.emplace_back(common::util::MaxElement(
         std::vector<double>{road_boundary.first, static_obs_boundary.first,
