@@ -21,6 +21,8 @@ cc_library(
         "//modules/localization/common:localization_common",
         "//modules/localization/proto:localization_config_proto",
         "//modules/localization/proto:localization_proto",
+        "//modules/localization/proto:measure_proto",
+        "//modules/localization/proto:sins_pva_proto",
         "@gtest//:gtest",
         "@ros//:ros_common",
     ],

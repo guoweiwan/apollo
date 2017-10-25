@@ -33,6 +33,8 @@
 #include "modules/localization/proto/gps.pb.h"
 #include "modules/localization/proto/imu.pb.h"
 #include "modules/localization/proto/localization.pb.h"
+#include "modules/localization/proto/measure.pb.h"
+#include "modules/localization/proto/sins_pva.pb.h"
 
 #include "glog/logging.h"
 #include "gtest/gtest_prod.h"
