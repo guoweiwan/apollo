@@ -17,8 +17,6 @@ cc_library(
     ],
     deps = [
         "//modules/common:log",
-        "//modules/perception/lib/base",
-        "//modules/perception/lib/pcl_util",
         "@eigen//:eigen",
     ],
 )

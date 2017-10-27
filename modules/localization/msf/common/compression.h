@@ -26,6 +26,7 @@ namespace msf {
 class CompressionStrategy {
 public:
     typedef std::vector<unsigned char> BufferStr;
+    virtual ~CompressionStrategy() {}
     virtual unsigned int encode(BufferStr& buf, BufferStr& buf_compressed) = 0;
     virtual unsigned int decode(BufferStr& buf, BufferStr& buf_uncompressed) = 0;
 protected:
