@@ -15,29 +15,31 @@
  *****************************************************************************/
 
 #include <algorithm>
+#define BOOST_NO_CXX11_SCOPED_ENUMS
 #include <boost/filesystem.hpp>
+#undef BOOST_NO_CXX11_SCOPED_ENUMS
 #include "modules/localization/msf/common/system_utility.h"
 
 namespace apollo {
 namespace localization {
 namespace msf {
 
-bool is_exists(const std::string &path) {
+bool system::is_exists(const std::string &path) {
     boost::filesystem::path p(path);
     return boost::filesystem::exists(p);
 }
 
-bool is_directory(const std::string &path) {
+bool system::is_directory(const std::string &path) {
     boost::filesystem::path p(path);
     return boost::filesystem::is_directory(p);
 }
 
-bool create_directory(const std::string& path) {
+bool system::create_directory(const std::string& path) {
     boost::filesystem::path p(path);
     return boost::filesystem::create_directory(p);
 }
 
-bool get_file_size(const std::string& path, unsigned int& size) {
+bool system::get_file_size(const std::string& path, unsigned int& size) {
     boost::filesystem::path p(path);
     if (boost::filesystem::exists(p)) {
         if (boost::filesystem::is_regular_file(p)) {
@@ -53,7 +55,7 @@ bool get_file_size(const std::string& path, unsigned int& size) {
     }
 }
 
-bool copy_file(const std::string& src, const std::string& dst, bool is_overwrite) {
+bool system::copy_file(const std::string& src, const std::string& dst, bool is_overwrite) {
     boost::filesystem::path path_src(src);
     boost::filesystem::path path_dst(dst);
     boost::system::error_code error;
@@ -73,7 +75,7 @@ bool copy_file(const std::string& src, const std::string& dst, bool is_overwrite
     }
 }
 
-void get_files_in_folder_recursive(const std::string& folder, const std::string& ext, std::vector<std::string>& ret)
+void system::get_files_in_folder_recursive(const std::string& folder, const std::string& ext, std::vector<std::string>& ret)
 {
     ret.clear();
     namespace fs = boost::filesystem;
@@ -94,7 +96,7 @@ void get_files_in_folder_recursive(const std::string& folder, const std::string&
     std::sort(ret.begin(), ret.end());
 }
 
-void get_files_in_folder(const std::string& folder, const std::string& ext, std::vector<std::string>& ret)
+void system::get_files_in_folder(const std::string& folder, const std::string& ext, std::vector<std::string>& ret)
 {
     ret.clear();
     namespace fs = boost::filesystem;
@@ -115,7 +117,7 @@ void get_files_in_folder(const std::string& folder, const std::string& ext, std:
     std::sort(ret.begin(), ret.end());
 }
 
-void get_folders_in_folder(const std::string& folder, std::vector<std::string>& ret) {
+void system::get_folders_in_folder(const std::string& folder, std::vector<std::string>& ret) {
     ret.clear();
     namespace fs = boost::filesystem;
     if(!fs::exists(folder) || !fs::is_directory(folder)) {
