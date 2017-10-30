@@ -7,7 +7,7 @@ cc_library(
     srcs = glob(["*.cc"]),
     hdrs = glob(["*.h"]),
     deps = [
-        "//modules/localization/msf/common:localization_msf_common",
+        "//modules/localization/msf/common/util:localization_msf_common_util",
         "//modules/localization/msf/local_map/base_map:localization_msf_base_map",
         "//third_party/threadpool",
         "@eigen//:eigen",

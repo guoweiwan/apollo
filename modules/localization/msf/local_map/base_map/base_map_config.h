@@ -7,7 +7,7 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 #include "modules/localization/msf/local_map/base_map/base_map_fwd.h"
-#include "modules/localization/msf/common/rect2d.h"
+#include "modules/localization/msf/common/util/rect2d.h"
 
 namespace apollo {
 namespace localization {

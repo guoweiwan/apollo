@@ -5,7 +5,7 @@
 #include "modules/localization/msf/local_map/base_map/base_map_fwd.h"
 #include "modules/localization/msf/local_map/base_map/base_map_config.h"
 #include "modules/localization/msf/local_map/base_map/base_map_node_index.h"
-#include "modules/localization/msf/common/compression.h"
+#include "modules/localization/msf/common/util/compression.h"
 
 namespace apollo {
 namespace localization {
