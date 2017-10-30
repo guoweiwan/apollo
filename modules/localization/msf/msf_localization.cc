@@ -89,5 +89,13 @@ void MSFLocalization::OnImu(const localization::Imu &imu_msg) {
 void MSFLocalization::OnGps(const localization::Gps &gps_msg) {
 }
 
+void MSFLocalization::OnMeasure(
+    const localization::IntegMeasure &measure_msg) {
+}
+
+void MSFLocalization::OnSinsPva(
+    const localization::IntegSinsPva &sins_pva_msg) {
+}
+
 }  // namespace localization
 }  // namespace apollo

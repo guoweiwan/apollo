@@ -76,6 +76,8 @@ class MSFLocalization : public LocalizationBase {
   void OnPointCloud(const sensor_msgs::PointCloud2& message);
   void OnImu(const localization::Imu &imu_msg);
   void OnGps(const localization::Gps &gps_msg);
+  void OnMeasure(const localization::IntegMeasure &measure_msg);
+  void OnSinsPva(const localization::IntegSinsPva &sins_pva_msg);
   // void PublishLocalization();
   // void RunWatchDog();
 
