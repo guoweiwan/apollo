@@ -32,6 +32,8 @@
 #include "modules/localization/proto/gps.pb.h"
 #include "modules/localization/proto/imu.pb.h"
 #include "modules/localization/proto/localization.pb.h"
+#include "modules/localization/proto/measure.pb.h"
+#include "modules/localization/proto/sins_pva.pb.h"
 #include "modules/perception/proto/perception_obstacle.pb.h"
 #include "modules/perception/proto/traffic_light_detection.pb.h"
 #include "modules/planning/proto/planning.pb.h"
@@ -74,6 +76,8 @@ using HMIStatusAdapter = Adapter<dreamview::HMIStatus>;
 using MobileyeAdapter = Adapter<drivers::Mobileye>;
 using DelphiESRAdapter = Adapter<drivers::DelphiESR>;
 using CompressedImageAdapter = Adapter<sensor_msgs::CompressedImage>;
+using IntegMeasureAdapter = Adapter<apollo::localization::IntegMeasure>;
+using IntegSinsPvaAdapter = Adapter<apollo::localization::IntegSinsPva>;
 
 }  // namespace adapter
 }  // namespace common

@@ -30,6 +30,8 @@ message AdapterConfig {
     DELPHIESR = 22;
     COMPRESSED_IMAGE = 23;
     HMI_STATUS = 24;
+    INTEG_MEASURE = 25;
+    INTEG_SINS_PVA = 26;
   }
   enum Mode {
     RECEIVE_ONLY = 0;

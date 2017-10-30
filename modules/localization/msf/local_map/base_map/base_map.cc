@@ -1,5 +1,5 @@
 #include "modules/localization/msf/local_map/base_map/base_map.h"
-#include "modules/localization/msf/common/system_utility.h"
+#include "modules/localization/msf/common/util/system_utility.h"
 
 namespace apollo {
 namespace localization {

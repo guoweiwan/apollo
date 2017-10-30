@@ -57,3 +57,7 @@ DEFINE_string(delphi_esr_topic, "/apollo/delphi_esr",
 // TODO(Authors): Change the topic name
 DEFINE_string(compressed_image_topic, "camera/image_raw",
               "CompressedImage topic name");
+DEFINE_string(localization_measure_topic, "/apollo/localization/measure",
+              "Localization measurement topic name");
+DEFINE_string(localization_sins_pva_topic, "/apollo/localization/sins_pva",
+              "Localization sins pva topic name");

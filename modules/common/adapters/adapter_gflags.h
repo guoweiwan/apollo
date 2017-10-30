@@ -44,5 +44,7 @@ DECLARE_string(hmi_status_topic);
 DECLARE_string(mobileye_topic);
 DECLARE_string(delphi_esr_topic);
 DECLARE_string(compressed_image_topic);
+DECLARE_string(localization_measure_topic);
+DECLARE_string(localization_sins_pva_topic);
 
 #endif  // MODULES_COMMON_ADAPTERS_ADAPTER_GFLAGS_H_
