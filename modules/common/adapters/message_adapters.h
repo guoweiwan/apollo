@@ -76,7 +76,8 @@ using HMIStatusAdapter = Adapter<dreamview::HMIStatus>;
 using MobileyeAdapter = Adapter<drivers::Mobileye>;
 using DelphiESRAdapter = Adapter<drivers::DelphiESR>;
 using CompressedImageAdapter = Adapter<sensor_msgs::CompressedImage>;
-using IntegMeasureAdapter = Adapter<apollo::localization::IntegMeasure>;
+using IntegMeasureGnssAdapter = Adapter<apollo::localization::IntegMeasure>;
+using IntegMeasureLidarAdapter = Adapter<apollo::localization::IntegMeasure>;
 using IntegSinsPvaAdapter = Adapter<apollo::localization::IntegSinsPva>;
 
 }  // namespace adapter

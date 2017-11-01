@@ -30,8 +30,9 @@ message AdapterConfig {
     DELPHIESR = 22;
     COMPRESSED_IMAGE = 23;
     HMI_STATUS = 24;
-    INTEG_MEASURE = 25;
-    INTEG_SINS_PVA = 26;
+    INTEG_MEASURE_GNSS = 25;
+    INTEG_MEASURE_LIDAR = 26;
+    INTEG_SINS_PVA = 27;
   }
   enum Mode {
     RECEIVE_ONLY = 0;
