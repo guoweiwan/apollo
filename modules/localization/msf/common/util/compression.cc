@@ -14,7 +14,7 @@
  * limitations under the License.
  *****************************************************************************/
 
-#include "modules/localization/msf/common/compression.h"
+#include "modules/localization/msf/common/util/compression.h"
 #include <cstdio>
 #include <assert.h>
 #include <zlib.h>
