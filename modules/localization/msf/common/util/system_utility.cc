@@ -18,7 +18,7 @@
 #define BOOST_NO_CXX11_SCOPED_ENUMS
 #include <boost/filesystem.hpp>
 #undef BOOST_NO_CXX11_SCOPED_ENUMS
-#include "modules/localization/msf/common/system_utility.h"
+#include "modules/localization/msf/common/util/system_utility.h"
 
 namespace apollo {
 namespace localization {
