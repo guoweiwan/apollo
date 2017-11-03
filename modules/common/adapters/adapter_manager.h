@@ -256,6 +256,12 @@ class AdapterManager {
   REGISTER_ADAPTER(Mobileye);
   REGISTER_ADAPTER(DelphiESR);
   REGISTER_ADAPTER(CompressedImage);
+  REGISTER_ADAPTER(GnssRtkObs);
+  REGISTER_ADAPTER(GnssRtkEph);
+  REGISTER_ADAPTER(GnssBestPose);
+  REGISTER_ADAPTER(IntegMeasureGnss);
+  REGISTER_ADAPTER(IntegMeasureLidar);
+  REGISTER_ADAPTER(IntegSinsPva);
 
   DECLARE_SINGLETON(AdapterManager);
 };

@@ -159,6 +159,32 @@ void AdapterManager::Init(const AdapterManagerConfig &configs) {
         EnableCompressedImage(FLAGS_compressed_image_topic, config.mode(),
                               config.message_history_limit());
         break;
+      case AdapterConfig::GNSS_RTK_OBS:
+        EnableGnssRtkObs(FLAGS_gnss_rtk_obs_topic, config.mode(),
+                         config.message_history_limit());
+        break;
+      case AdapterConfig::GNSS_RTK_EPH:
+        EnableGnssRtkEph(FLAGS_gnss_rtk_eph_topic, config.mode(),
+                         config.message_history_limit());
+        break;
+      case AdapterConfig::GNSS_BEST_POSE:
+        EnableGnssBestPose(FLAGS_gnss_best_pose_topic, config.mode(),
+                           config.message_history_limit());
+        break;
+      case AdapterConfig::INTEG_MEASURE_GNSS:
+        EnableIntegMeasureGnss(FLAGS_localization_measure_gnss_topic, 
+                           config.mode(),
+                           config.message_history_limit());
+        break;
+      case AdapterConfig::INTEG_MEASURE_LIDAR:
+        EnableIntegMeasureLidar(FLAGS_localization_measure_lidar_topic,
+                                config.mode(),
+                                config.message_history_limit());
+        break;
+      case AdapterConfig::INTEG_SINS_PVA:
+        EnableIntegSinsPva(FLAGS_localization_sins_pva_topic, config.mode(),
+                           config.message_history_limit());
+        break;
       default:
         AERROR << "Unknown adapter config type!";
         break;
