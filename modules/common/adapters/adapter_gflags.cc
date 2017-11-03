@@ -57,6 +57,12 @@ DEFINE_string(delphi_esr_topic, "/apollo/delphi_esr",
 // TODO(Authors): Change the topic name
 DEFINE_string(compressed_image_topic, "camera/image_raw",
               "CompressedImage topic name");
+DEFINE_string(gnss_rtk_obs_topic, "/apollo/sensor/gnss/rtk_obs",
+              "Gnss rtk observation topic name");
+DEFINE_string(gnss_rtk_eph_topic, "/apollo/sensor/gnss/rtk_eph",
+              "Gnss rtk ephemeris topic name");
+DEFINE_string(gnss_best_pose_topic, "/apollo/sensor/gnss/best_pose",
+              "Gnss rtk best gnss pose");
 DEFINE_string(localization_measure_gnss_topic,
               "/apollo/localization/measure_gnss",
               "Gnss localization measurement topic name");

@@ -87,6 +87,8 @@ cc_library(
         "//modules/localization/proto:gps_proto",
         "//modules/localization/proto:imu_proto",
         "//modules/localization/proto:localization_proto",
+        "//modules/drivers/gnss/proto:gnss_raw_observation_proto",
+        "//modules/drivers/gnss/proto:gnss_best_pose_proto",
         "//modules/localization/proto:measure_proto",
         "//modules/localization/proto:sins_pva_proto",
         "//modules/map/proto:map_proto",
