@@ -73,6 +73,9 @@ void AdapterManager::Init(const AdapterManagerConfig &configs) {
         EnableImu(FLAGS_imu_topic, config.mode(),
                   config.message_history_limit());
         break;
+      case AdapterConfig::RAW_IMU:
+        EnableRawImu(FLAGS_raw_imu_topic, config.mode(),
+                     config.message_history_limit());
       case AdapterConfig::CHASSIS:
         EnableChassis(FLAGS_chassis_topic, config.mode(),
                       config.message_history_limit());
@@ -172,14 +175,12 @@ void AdapterManager::Init(const AdapterManagerConfig &configs) {
                            config.message_history_limit());
         break;
       case AdapterConfig::INTEG_MEASURE_GNSS:
-        EnableIntegMeasureGnss(FLAGS_localization_measure_gnss_topic, 
-                           config.mode(),
-                           config.message_history_limit());
+        EnableIntegMeasureGnss(FLAGS_localization_measure_gnss_topic,
+                               config.mode(), config.message_history_limit());
         break;
       case AdapterConfig::INTEG_MEASURE_LIDAR:
         EnableIntegMeasureLidar(FLAGS_localization_measure_lidar_topic,
-                                config.mode(),
-                                config.message_history_limit());
+                                config.mode(), config.message_history_limit());
         break;
       case AdapterConfig::INTEG_SINS_PVA:
         EnableIntegSinsPva(FLAGS_localization_sins_pva_topic, config.mode(),

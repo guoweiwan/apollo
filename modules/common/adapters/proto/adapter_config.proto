@@ -38,6 +38,7 @@ message AdapterConfig {
     INTEG_MEASURE_GNSS = 30;
     INTEG_MEASURE_LIDAR = 31;
     INTEG_SINS_PVA = 32;
+    RAW_IMU = 33;
   }
   enum Mode {
     RECEIVE_ONLY = 0;

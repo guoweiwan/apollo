@@ -25,11 +25,12 @@
 #include "modules/common/proto/gnss_status.pb.h"
 #include "modules/control/proto/control_cmd.pb.h"
 #include "modules/control/proto/pad_msg.pb.h"
+#include "modules/drivers/gnss/proto/gnss_best_pose.pb.h"
+#include "modules/drivers/gnss/proto/gnss_raw_observation.pb.h"
+#include "modules/drivers/gnss/proto/imu.pb.h"
 #include "modules/drivers/gnss/proto/ins.pb.h"
 #include "modules/drivers/proto/delphi_esr.pb.h"
 #include "modules/drivers/proto/mobileye.pb.h"
-#include "modules/drivers/gnss/proto/gnss_raw_observation.pb.h"
-#include "modules/drivers/gnss/proto/gnss_best_pose.pb.h"
 #include "modules/hmi/proto/hmi_message.pb.h"
 #include "modules/localization/proto/gps.pb.h"
 #include "modules/localization/proto/imu.pb.h"
@@ -60,6 +61,7 @@ using ChassisDetailAdapter = Adapter<::apollo::canbus::ChassisDetail>;
 using ControlCommandAdapter = Adapter<control::ControlCommand>;
 using GpsAdapter = Adapter<apollo::localization::Gps>;
 using ImuAdapter = Adapter<localization::Imu>;
+using RawImuAdapter = Adapter<apollo::drivers::gnss::Imu>;
 using LocalizationAdapter = Adapter<apollo::localization::LocalizationEstimate>;
 using MonitorAdapter = Adapter<apollo::common::monitor::MonitorMessage>;
 using PadAdapter = Adapter<control::PadMessage>;
