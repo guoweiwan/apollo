@@ -7,8 +7,10 @@ cc_library(
     srcs = ["vehicle_manager.cc"],
     hdrs = ["vehicle_manager.h"],
     deps = [
+        "//modules/common/configs:config_gflags",
         "//modules/common/util",
         "//modules/common/util:string_util",
+        "//modules/control/common:control_gflags",
     ],
 )
 

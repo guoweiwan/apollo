@@ -91,14 +91,19 @@ std::vector<TrajectoryPoint> TrajectoryStitcher::ComputeStitchingTrajectory(
     return ComputeReinitStitchingTrajectory(vehicle_state);
   }
 
-  auto matched_point = prev_trajectory->TrajectoryPointAt(matched_index);
+  auto matched_point =
+      prev_trajectory->EvaluateUsingLinearApproximation(veh_rel_time);
+
   const double position_diff =
       std::hypot(matched_point.path_point().x() - vehicle_state.x(),
                  matched_point.path_point().y() - vehicle_state.y());
 
+  ADEBUG << "Control diff: " << position_diff;
+
   if (position_diff > FLAGS_replan_distance_threshold) {
     AWARN << "the distance between matched point and actual position is too "
-             "large";
+             "large, position difference = "
+          << position_diff;
     return ComputeReinitStitchingTrajectory(vehicle_state);
   }
 

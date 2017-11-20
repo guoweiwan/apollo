@@ -32,13 +32,14 @@ message AdapterConfig {
     SYSTEM_STATUS = 24;
     INS_STATUS = 25;
     GNSS_STATUS = 26;
-    GNSS_RTK_OBS = 27;
-    GNSS_RTK_EPH = 28;
-    GNSS_BEST_POSE = 29;
-    INTEG_MEASURE_GNSS = 30;
-    INTEG_MEASURE_LIDAR = 31;
-    INTEG_SINS_PVA = 32;
-    RAW_IMU = 33;
+    CONTI_RADAR = 27;
+    GNSS_RTK_OBS = 28;
+    GNSS_RTK_EPH = 29;
+    GNSS_BEST_POSE = 30;
+    INTEG_MEASURE_GNSS = 31;
+    INTEG_MEASURE_LIDAR = 32;
+    INTEG_SINS_PVA = 33;
+    RAW_IMU = 34;
   }
   enum Mode {
     RECEIVE_ONLY = 0;
