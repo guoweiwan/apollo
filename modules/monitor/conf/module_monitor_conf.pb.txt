@@ -11,6 +11,14 @@ modules {
   process_cmd_keywords: "velodyne_nodelet_manager"
 }
 modules {
+  name: "radar"
+  process_cmd_keywords: "modules/drivers/conti_radar/conti_radar"
+}
+modules {
+  name: "camera"
+  process_cmd_keywords: "camera_nodelet_manager"
+}
+modules {
   name: "localization"
   process_cmd_keywords: "modules/localization/localization"
 }

@@ -30,6 +30,7 @@
 #include "modules/drivers/gnss/proto/imu.pb.h"
 #include "modules/drivers/gnss/proto/ins.pb.h"
 #include "modules/drivers/proto/delphi_esr.pb.h"
+#include "modules/drivers/proto/conti_radar.pb.h"
 #include "modules/drivers/proto/mobileye.pb.h"
 #include "modules/hmi/proto/hmi_message.pb.h"
 #include "modules/localization/proto/gps.pb.h"
@@ -82,6 +83,7 @@ using SystemStatusAdapter = Adapter<apollo::monitor::SystemStatus>;
 using HMICommandAdapter = Adapter<hmi::HMICommand>;
 using MobileyeAdapter = Adapter<drivers::Mobileye>;
 using DelphiESRAdapter = Adapter<drivers::DelphiESR>;
+using ContiRadarAdapter = Adapter<drivers::ContiRadar>;
 using CompressedImageAdapter = Adapter<sensor_msgs::CompressedImage>;
 using GnssRtkObsAdapter = Adapter<apollo::drivers::gnss::EpochObservation>;
 using GnssRtkEphAdapter = Adapter<apollo::drivers::gnss::GnssEphemeris>;
