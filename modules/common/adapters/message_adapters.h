@@ -87,11 +87,11 @@ using CompressedImageAdapter = Adapter<sensor_msgs::CompressedImage>;
 using GnssRtkObsAdapter = Adapter<apollo::drivers::gnss::EpochObservation>;
 using GnssRtkEphAdapter = Adapter<apollo::drivers::gnss::GnssEphemeris>;
 using GnssBestPoseAdapter = Adapter<apollo::drivers::gnss::GnssBestPose>;
-using IntegMeasureGnssAdapter =
+using LocalizationMsfGnssAdapter =
     Adapter<apollo::localization::LocalizationEstimate>;
-using IntegMeasureLidarAdapter =
+using LocalizationMsfLidarAdapter =
     Adapter<apollo::localization::LocalizationEstimate>;
-using IntegSinsPvaAdapter = Adapter<apollo::localization::IntegSinsPva>;
+using LocalizationMsfSinsPvaAdapter = Adapter<apollo::localization::IntegSinsPva>;
 
 }  // namespace adapter
 }  // namespace common
