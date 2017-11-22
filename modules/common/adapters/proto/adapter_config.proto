@@ -36,9 +36,9 @@ message AdapterConfig {
     GNSS_RTK_OBS = 28;
     GNSS_RTK_EPH = 29;
     GNSS_BEST_POSE = 30;
-    INTEG_MEASURE_GNSS = 31;
-    INTEG_MEASURE_LIDAR = 32;
-    INTEG_SINS_PVA = 33;
+    LOCALIZATION_MSF_GNSS = 31;
+    LOCALIZATION_MSF_LIDAR = 32;
+    LOCALIZATION_MSF_SINS_PVA = 33;
     RAW_IMU = 34;
   }
   enum Mode {
