@@ -155,6 +155,19 @@ void Planning::PublishPlanningPb(ADCTrajectory* trajectory_pb,
     trajectory_pb->mutable_routing_header()->CopyFrom(
         AdapterManager::GetRoutingResponse()->GetLatestObserved().header());
   }
+
+  // NOTICE:
+  // Since we are using the time at each cycle beginning as timestamp, the
+  // relative time of each trajectory point should be modified so that we can
+  // use the current timestamp in header.
+
+  // auto* trajectory_points = trajectory_pb.mutable_trajectory_point();
+  if (!FLAGS_planning_test_mode) {
+    const double dt = timestamp - Clock::NowInSecond();
+    for (auto& p : *trajectory_pb->mutable_trajectory_point()) {
+      p.set_relative_time(p.relative_time() + dt);
+    }
+  }
   Publish(trajectory_pb);
 }
 
@@ -196,7 +209,12 @@ void Planning::RunOnce() {
       VehicleStateProvider::instance()->vehicle_state();
 
   // estimate (x, y) at current timestamp
-  if (FLAGS_estimate_current_vehicle_state) {
+  // This estimate is only valid if the current time and vehicle state timestamp
+  // differs only a small amount (20ms). When the different is too large, the
+  // estimation is invalid.
+  DCHECK_GT(start_timestamp, vehicle_state.timestamp());
+  if (FLAGS_estimate_current_vehicle_state &&
+      start_timestamp - vehicle_state.timestamp() < 0.020) {
     auto future_xy = VehicleStateProvider::instance()->EstimateFuturePosition(
         start_timestamp - vehicle_state.timestamp());
     vehicle_state.set_x(future_xy.x());
@@ -358,17 +376,17 @@ Status Planning::Plan(const double current_time_stamp,
 
   ADEBUG << "current_time_stamp: " << std::to_string(current_time_stamp);
 
-  const auto& trajectory = best_reference_line->trajectory();
-  for (size_t i = 0; i < trajectory.NumOfPoints(); ++i) {
-    if (trajectory.TrajectoryPointAt(i).relative_time() >
+  last_publishable_trajectory_->PrependTrajectoryPoints(
+      stitching_trajectory.begin(), stitching_trajectory.end() - 1);
+
+  for (size_t i = 0; i < last_publishable_trajectory_->NumOfPoints(); ++i) {
+    if (last_publishable_trajectory_->TrajectoryPointAt(i).relative_time() >
         FLAGS_trajectory_time_high_density_period) {
       break;
     }
-    ADEBUG << trajectory.TrajectoryPointAt(i).ShortDebugString();
+    ADEBUG << last_publishable_trajectory_->TrajectoryPointAt(i)
+                  .ShortDebugString();
   }
-
-  last_publishable_trajectory_->PrependTrajectoryPoints(
-      stitching_trajectory.begin(), stitching_trajectory.end() - 1);
 
   last_publishable_trajectory_->PopulateTrajectoryProtobuf(trajectory_pb);
 
