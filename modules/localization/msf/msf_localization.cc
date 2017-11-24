@@ -191,6 +191,17 @@ void MSFLocalization::InitParams() {
         common::util::TranslatePath(FLAGS_gnss_conf_path), &gnss_config));
     CHECK(gnss_config.login_commands_size() > 1);
     std::string login_commands = gnss_config.login_commands(1);
+    bool found_imu_ant_parameter = false;
+    for (unsigned int i = 0; i < gnss_config.login_commands_size(); ++i) {
+      login_commands = gnss_config.login_commands(i);
+      std::size_t found = login_commands.find(std::string("SETIMUTOANTOFFSET"));
+      if (found != std::string::npos) {
+        found_imu_ant_parameter = true;
+        break;
+      }
+    }
+    CHECK(found_imu_ant_parameter);
+
     std::vector<std::string> segmented_login_commands =
         common::util::StringTokenizer::Split(login_commands, " ");
     CHECK(segmented_login_commands.size() == 7);
@@ -211,6 +222,14 @@ void MSFLocalization::InitParams() {
     localizaiton_param_.imu_to_ant_offset.uncertainty_x = uncertainty_x;
     localizaiton_param_.imu_to_ant_offset.uncertainty_y = uncertainty_y;
     localizaiton_param_.imu_to_ant_offset.uncertainty_z = uncertainty_z;
+
+    std::cout << localizaiton_param_.imu_to_ant_offset.offset_x << " "
+              << localizaiton_param_.imu_to_ant_offset.offset_y << " "
+              << localizaiton_param_.imu_to_ant_offset.offset_z << " "
+              << localizaiton_param_.imu_to_ant_offset.uncertainty_x << " "
+              << localizaiton_param_.imu_to_ant_offset.uncertainty_y << " "
+              << localizaiton_param_.imu_to_ant_offset.uncertainty_z
+              << std::endl;
   }
 }
 
