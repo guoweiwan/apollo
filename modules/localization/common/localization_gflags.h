@@ -52,7 +52,7 @@ DECLARE_bool(enable_gps_timestamp);
 
 // lidar module
 DECLARE_string(local_map_name);
-DECLARE_string(velodyne_extrinsics_path);
+DECLARE_string(velodyne_params_target_path);
 DECLARE_string(lidar_height_file);
 DECLARE_int32(lidar_localization_mode);
 DECLARE_int32(lidar_filter_size);
@@ -75,7 +75,7 @@ DECLARE_string(broadcast_tf2_child_frame_id);
 DECLARE_bool(enable_ins_aid_rtk);
 DECLARE_bool(enable_auto_save_eph_file);
 DECLARE_string(eph_buffer_path);
-DECLARE_string(gnss_conf_path);
+DECLARE_string(gnss_conf_file_target_path);
 DECLARE_bool(gnss_debug_log_flag);
 DECLARE_bool(imuant_from_gnss_conf_file);
 DECLARE_double(imu_to_ant_offset_x);

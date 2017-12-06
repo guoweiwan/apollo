@@ -113,7 +113,9 @@ namespace adapter {
                                                                                \
     observers_.push_back([this]() { name##_->Observe(); });                    \
   }                                                                            \
-  name##Adapter *InternalGet##name() { return name##_.get(); }                 \
+  name##Adapter *InternalGet##name() {                                         \
+    return name##_.get();                                                      \
+  }                                                                            \
   void InternalPublish##name(const name##Adapter::DataType &data) {            \
     /* Only publish ROS msg if node handle is initialized. */                  \
     if (IsRos()) {                                                             \
@@ -181,7 +183,9 @@ class AdapterManager {
   /**
    * @brief Returns whether AdapterManager is running ROS mode.
    */
-  static bool IsRos() { return instance()->node_handle_ != nullptr; }
+  static bool IsRos() {
+    return instance()->node_handle_ != nullptr;
+  }
 
   /**
    * @brief Returns a reference to static tf2 buffer.
@@ -237,6 +241,8 @@ class AdapterManager {
   REGISTER_ADAPTER(PerceptionObstacles);
   REGISTER_ADAPTER(Planning);
   REGISTER_ADAPTER(PointCloud);
+  REGISTER_ADAPTER(ImageShort);
+  REGISTER_ADAPTER(ImageLong);
   REGISTER_ADAPTER(Prediction);
   REGISTER_ADAPTER(TrafficLightDetection);
   REGISTER_ADAPTER(RoutingRequest);
@@ -246,8 +252,6 @@ class AdapterManager {
   REGISTER_ADAPTER(InsStatus);
   REGISTER_ADAPTER(GnssStatus);
   REGISTER_ADAPTER(SystemStatus);
-  // TODO(xiaoxq): Retire HMICommand adapter after integration with dreamview.
-  REGISTER_ADAPTER(HMICommand);
   REGISTER_ADAPTER(Mobileye);
   REGISTER_ADAPTER(DelphiESR);
   REGISTER_ADAPTER(ContiRadar);
@@ -258,7 +262,6 @@ class AdapterManager {
   REGISTER_ADAPTER(LocalizationMsfGnss);
   REGISTER_ADAPTER(LocalizationMsfLidar);
   REGISTER_ADAPTER(LocalizationMsfSinsPva);
-
   DECLARE_SINGLETON(AdapterManager);
 };
 
