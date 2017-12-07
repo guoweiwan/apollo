@@ -19,7 +19,6 @@
 
 #include <string>
 
-#include "modules/perception/common/define.h"
 #include "modules/perception/lib/pcl_util/pcl_types.h"
 
 namespace apollo {
@@ -49,6 +48,9 @@ typedef pcl_util::PointDCloud PolygonDType;
 using SeqId = uint32_t;
 
 std::string GetSensorType(SensorType sensor_type);
+
+bool is_lidar(SensorType sensor_type);
+bool is_radar(SensorType sensor_type);
 
 }  // namespace perception
 }  // namespace apollo

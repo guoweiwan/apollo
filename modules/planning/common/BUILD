@@ -176,11 +176,9 @@ cc_library(
 cc_library(
     name = "reference_line_info",
     srcs = [
-        "decider.cc",
         "reference_line_info.cc",
     ],
     hdrs = [
-        "decider.h",
         "reference_line_info.h",
     ],
     deps = [
@@ -235,7 +233,6 @@ cc_library(
     ],
     deps = [
         "//modules/common/math",
-        "//modules/planning/common/speed:speed_data",
         "//modules/planning/proto:planning_proto",
     ],
 )

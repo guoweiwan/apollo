@@ -106,10 +106,6 @@ bool PncMap::IsNewRouting(const routing::RoutingResponse &routing) const {
 }
 
 bool PncMap::UpdateRoutingResponse(const routing::RoutingResponse &routing) {
-  if (!IsNewRouting(routing)) {
-    ADEBUG << "Not a valid new routing, no update";
-    return true;
-  }
   routing_lane_ids_.clear();
   for (const auto &road : routing.road()) {
     for (const auto &passage : road.passage()) {
@@ -322,6 +318,31 @@ bool PncMap::GetNearestPointFromRouting(const common::VehicleState &state,
   for (const auto &lane : lanes) {
     if (routing_lane_ids_.count(lane->id().id()) == 0) {
       continue;
+    }
+
+    /* If vehicle state is beyond the lane, skip
+     * As shown in the following example, only lane 3 should be considered,
+     * although lane 1 might be closer.
+     *
+     *  =====> driving direction
+     *  --------------
+     *       lane 1
+     *                (*) vehicle position
+     *  -------------- -------------
+     *
+     *       lane 2        lane 3
+     *  -------------- -------------
+     */
+    {
+      double s = 0.0;
+      double l = 0.0;
+      if (!lane->GetProjection({point.x(), point.y()}, &s, &l)) {
+        return false;
+      }
+      constexpr double kEpsilon = 1e-6;
+      if (s > (lane->total_length() + kEpsilon) || (s + kEpsilon) < 0.0) {
+        continue;
+      }
     }
     double distance = 0.0;
     common::PointENU map_point =

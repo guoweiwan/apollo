@@ -30,9 +30,9 @@
 
 #include "modules/common/proto/pnc_point.pb.h"
 #include "modules/common/proto/vehicle_state.pb.h"
-#include "modules/map/pnc_map/pnc_map.h"
 #include "modules/planning/proto/planning.pb.h"
 
+#include "modules/map/pnc_map/pnc_map.h"
 #include "modules/planning/common/path/path_data.h"
 #include "modules/planning/common/path_decision.h"
 #include "modules/planning/common/speed/speed_data.h"
@@ -116,6 +116,11 @@ class ReferenceLineInfo {
   std::unique_ptr<PathObstacle> CreatePathObstacle(const Obstacle* obstacle);
   bool InitPerceptionSLBoundary(PathObstacle* path_obstacle);
 
+  void MakeDecision(DecisionResult* decision_result) const;
+  int MakeMainStopDecision(DecisionResult* decision_result) const;
+  void MakeMainMissionCompleteDecision(DecisionResult* decision_result) const;
+  void MakeEStopDecision(DecisionResult* decision_result) const;
+  void SetObjectDecisions(ObjectDecisions* object_decisions) const;
   const common::VehicleState vehicle_state_;
   const common::TrajectoryPoint adc_planning_point_;
   const ReferenceLine reference_line_;

@@ -158,13 +158,15 @@ DEFINE_double(static_obstacle_speed_threshold, 1.0,
               "obstacles are considered as static obstacle if its speed is "
               "less than this value (m/s)");
 DEFINE_bool(enable_nudge_decision, true, "enable nudge decision");
-DEFINE_double(static_decision_nudge_l_buffer, 0.5, "l buffer for nudge");
+DEFINE_double(static_decision_nudge_l_buffer, 0.3, "l buffer for nudge");
 DEFINE_double(lateral_ignore_buffer, 2.0,
               "If an obstacle's lateral distance is further away than this "
               "distance, ignore it");
-DEFINE_double(stop_distance_obstacle, 10.0,
-              "stop distance from in-lane obstacle (meters)");
-DEFINE_double(stop_distance_destination, 3.0,
+DEFINE_double(max_stop_distance_obstacle, 10.0,
+              "max stop distance from in-lane obstacle (meters)");
+DEFINE_double(min_stop_distance_obstacle, 3.0,
+              "min stop distance from in-lane obstacle (meters)");
+DEFINE_double(stop_distance_destination, 0.5,
               "stop distance from destination line");
 DEFINE_double(stop_distance_traffic_light, 0.5,
               "stop distance from destination line");
@@ -190,6 +192,9 @@ DEFINE_double(virtual_stop_wall_height, 2.0,
               "virtual stop wall height (meters)");
 DEFINE_string(reference_line_end_obstacle_id, "REF_END",
               "Obstacle id for the end of reference line obstacle");
+DEFINE_double(signal_expire_time_sec, 5.0,
+              "consider the signal msg is expired if its timestamp over "
+              "this threshold (second)");
 
 // Prediction Part
 DEFINE_double(prediction_total_time, 5.0, "Total prediction time");
