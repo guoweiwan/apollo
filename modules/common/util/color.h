@@ -14,29 +14,30 @@
  * limitations under the License.
  *****************************************************************************/
 
-#ifndef MODULES_PERCEPTION_COMMON_DEFINE_H_
-#define MODULES_PERCEPTION_COMMON_DEFINE_H_
+/**
+ * @file
+ * @brief Console color definitions
+ */
 
-#include <cmath>
+#ifndef MODULES_COMMON_UTIL_COLOR_H_
+#define MODULES_COMMON_UTIL_COLOR_H_
+
+#include <cstdio>
 
 namespace apollo {
-namespace perception {
+namespace common {
+namespace color {
 
-constexpr double kRadianToDegree = 180.0 / M_PI;
+constexpr char ANSI_RED[] = "\x1b[31m";
+constexpr char ANSI_GREEN[] = "\x1b[32m";
+constexpr char ANSI_YELLOW[] = "\x1b[33m";
+constexpr char ANSI_BLUE[] = "\x1b[34m";
+constexpr char ANSI_MAGENTA[] = "\x1b[35m";
+constexpr char ANSI_CYAN[] = "\x1b[36m";
+constexpr char ANSI_RESET[] = "\x1b[0m";
 
-// Error code definition
-enum StatusCode {
-  SUCC = 0,
-  // Common error, process will proceeding and warning log will be printed.
-  // Under most circumstances, function should return this code when a error
-  // occurs.
-  FAIL = 1,
-  // Fatal error, process will be terminated and fatal log will be printed.
-  // Generated only when a fatal error occurs, such as config loading error.
-  FATAL = 2,
-};
-
-}  // namespace perception
+}  // namespace color
+}  // namespace common
 }  // namespace apollo
 
-#endif  // MODULES_PERCEPTION_COMMON_DEFINE_H_
+#endif  // MODULES_COMMON_UTIL_COLOR_H_

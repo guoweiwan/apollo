@@ -18,7 +18,7 @@
 
 VERSION=""
 ARCH=$(uname -m)
-VERSION_X86_64="dev-x86_64-20171204_1625"
+VERSION_X86_64="dev-x86_64-20171206_1627"
 VERSION_AARCH64="dev-aarch64-20170927_1111"
 if [[ $# == 1 ]];then
     VERSION=$1
@@ -77,6 +77,7 @@ function main(){
     devices="${devices} $(find_device loop*)"
     devices="${devices} $(find_device nvidia*)"
     devices="${devices} $(find_device video*)"
+    devices="${devices} $(find_device novatel*)"
     devices="${devices} -v /dev/camera/obstacle:/dev/camera/obstacle "
     devices="${devices} -v /dev/camera/trafficlights:/dev/camera/trafficlights "
 
@@ -108,6 +109,8 @@ function main(){
         -v /media:/media \
         -v $HOME/.cache:${DOCKER_HOME}/.cache \
         -v /etc/localtime:/etc/localtime:ro \
+-v /usr/src:/usr/src \
+-v /lib/modules:/lib/modules \
         --net host \
         -w /apollo \
         ${devices} \

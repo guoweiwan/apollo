@@ -73,6 +73,7 @@ function main() {
     devices="${devices} $(find_device nvidia*)"
     devices="${devices} $(find_device camera*)"
     devices="${devices} $(find_device video*)"
+    devices="${devices} $(find_device novatel*)"
     devices="${devices} -v /dev/camera/obstacle:/dev/camera/obstacle "
     devices="${devices} -v /dev/camera/trafficlights:/dev/camera/trafficlights "
 
@@ -128,6 +129,7 @@ function main() {
         docker exec apollo_release bash -c "chmod a+rw -R /apollo/ros/share/gnss_driver"
         docker exec apollo_release bash -c "chmod a+rw -R /apollo/ros/share/velodyne"
         docker exec apollo_release bash -c "chmod a+rw -R /apollo/modules/control/conf"
+        docker exec apollo_release bash -c "chmod a+rw -R /apollo/modules/perception/data/params/"
     fi
     docker exec -u ${USER} -it apollo_release "/apollo/scripts/bootstrap.sh"
 }

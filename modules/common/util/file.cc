@@ -65,6 +65,22 @@ std::string TranslatePath(const std::string &src_path) {
   return result;
 }
 
+std::string GetAbsolutePath(const std::string &prefix,
+                            const std::string &relative_path) {
+  if (relative_path.empty()) {
+    return prefix;
+  }
+  // If prefix is empty or relative_path is already absolute.
+  if (prefix.empty() || relative_path[0] == '/') {
+    return relative_path;
+  }
+
+  if (prefix.back() == '/') {
+    return StrCat(prefix, relative_path);
+  }
+  return StrCat(prefix, "/", relative_path);
+}
+
 bool PathExists(const std::string &path) {
   struct stat info;
   return stat(path.c_str(), &info) == 0;
@@ -85,19 +101,29 @@ bool DirectoryExists(const std::string &directory_path) {
 
 bool CopyFile(const std::string &from, const std::string &to) {
   std::ifstream src(from, std::ios::binary);
-  std::ofstream dst(to, std::ios::binary);
-  if (src && dst) {
-    dst << src.rdbuf();
-    return true;
+  if (!src) {
+    AERROR << "Source path doesn't exist: " << from;
+    return false;
   }
-  AERROR_IF(src && !dst) << "Target path is not writable: " << to;
-  return false;
+
+  std::ofstream dst(to, std::ios::binary);
+  if (!dst) {
+    AERROR << "Target path is not writable: " << to;
+    return false;
+  }
+
+  dst << src.rdbuf();
+  return true;
 }
 
 bool CopyDir(const std::string &from, const std::string &to) {
   DIR *directory = opendir(from.c_str());
   if (directory == nullptr) {
     AERROR << "Cannot open directory " << from;
+    return false;
+  }
+  if (!EnsureDirectory(to)) {
+    AERROR << "Cannot create target directory " << to;
     return false;
   }
 
@@ -118,6 +144,10 @@ bool CopyDir(const std::string &from, const std::string &to) {
   }
   closedir(directory);
   return ret;
+}
+
+bool Copy(const std::string &from, const std::string &to) {
+  return DirectoryExists(from) ? CopyDir(from, to) : CopyFile(from, to);
 }
 
 bool EnsureDirectory(const std::string &directory_path) {
