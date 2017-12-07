@@ -54,7 +54,5 @@ DECLARE_string(gnss_best_pose_topic);
 DECLARE_string(localization_gnss_topic);
 DECLARE_string(localization_lidar_topic);
 DECLARE_string(localization_sins_pva_topic);
-DECLARE_string(short_image_topic);
-DECLARE_string(long_image_topic);
 
 #endif  // MODULES_COMMON_ADAPTERS_ADAPTER_GFLAGS_H_

@@ -43,8 +43,8 @@
 #include "modules/prediction/proto/prediction_obstacle.pb.h"
 #include "modules/routing/proto/routing.pb.h"
 #include "sensor_msgs/CompressedImage.h"
-#include "sensor_msgs/PointCloud2.h"
 #include "sensor_msgs/Image.h"
+#include "sensor_msgs/PointCloud2.h"
 
 /**
  * @file message_adapters.h
@@ -91,7 +91,8 @@ using LocalizationMsfGnssAdapter =
     Adapter<apollo::localization::LocalizationEstimate>;
 using LocalizationMsfLidarAdapter =
     Adapter<apollo::localization::LocalizationEstimate>;
-using LocalizationMsfSinsPvaAdapter = Adapter<apollo::localization::IntegSinsPva>;
+using LocalizationMsfSinsPvaAdapter =
+    Adapter<apollo::localization::IntegSinsPva>;
 
 }  // namespace adapter
 }  // namespace common
